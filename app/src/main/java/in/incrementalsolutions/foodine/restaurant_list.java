@@ -1,5 +1,6 @@
 package in.incrementalsolutions.foodine;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +13,9 @@ public class restaurant_list extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_restaurant_list);
+
+        Intent skipthisactivity = new Intent(restaurant_list.this,CatalogueActivity.class);
+        startActivity(skipthisactivity);
     }
 
 

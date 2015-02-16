@@ -20,6 +20,18 @@
             android:name=".restaurant_list"
             android:label="@string/title_activity_restaurant_list" >
         </activity>
+        <activity
+            android:name=".CatalogueActivity"
+            android:label="@string/title_activity_catalogue" >
+        </activity>
+        <activity
+            android:name=".ProductDetailsActivity"
+            android:label="@string/title_activity_product_details" >
+        </activity>
+        <activity
+            android:name=".ShoppingCartActivity"
+            android:label="@string/title_activity_shopping_cart" >
+        </activity>
     </application>
 
 </manifest>
