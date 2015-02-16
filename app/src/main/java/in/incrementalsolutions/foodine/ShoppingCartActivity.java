@@ -1,6 +1,6 @@
 package in.incrementalsolutions.foodine;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,46 +17,45 @@ import android.widget.AdapterView.OnItemClickListener;
 
 
 
-public class ShoppingCartActivity extends ActionBarActivity {
+public class ShoppingCartActivity extends Activity {
 
     private List<product> mCartList;
     private ProductAdapter mProductAdapter;
 
     @Override
         protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.shoppingcart);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.shoppingcart);
 
-            mCartList = ShoppingCartHelper.getCart();
+        mCartList = ShoppingCartHelper.getCartList();
 
-            // Make sure to clear the selections
-            for(int i=0; i<mCartList.size(); i++) {
-                mCartList.get(i).selected = false;
+        // Make sure to clear the selections
+        for (int i = 0; i < mCartList.size(); i++) {
+            mCartList.get(i).selected = false;
+        }
+
+        // Create the list
+        final ListView listViewCatalog = (ListView) findViewById(R.id.ListViewCatalog);
+        mProductAdapter = new ProductAdapter(mCartList, getLayoutInflater(), true);
+        listViewCatalog.setAdapter(mProductAdapter);
+
+        listViewCatalog.setOnItemClickListener(new OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+
+                Intent productionDetailsIntent = new Intent(getBaseContext(), ProductDetailsActivity.class);
+                productionDetailsIntent.putExtra(ShoppingCartHelper.PRODUCT_INDEX, position);
+                startActivity(productionDetailsIntent);
+
             }
+        });
 
-            // Create the list
-            final ListView listViewCatalog = (ListView) findViewById(R.id.ListViewCatalog);
-            mProductAdapter = new ProductAdapter(mCartList, getLayoutInflater(), true);
-            listViewCatalog.setAdapter(mProductAdapter);
 
-            listViewCatalog.setOnItemClickListener(new OnItemClickListener() {
 
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position,
-                                        long id) {
+           /* Button removeButton = (Button) findViewById(R.id.ButtonRemoveFromCart);
 
-                    product selectedProduct = mCartList.get(position);
-                    if(selectedProduct.selected == true)
-                        selectedProduct.selected = false;
-                    else
-                        selectedProduct.selected = true;
-
-                    mProductAdapter.notifyDataSetInvalidated();
-
-                }
-            });
-
-            Button removeButton = (Button) findViewById(R.id.ButtonRemoveFromCart);
             removeButton.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -72,7 +71,25 @@ public class ShoppingCartActivity extends ActionBarActivity {
                 }
             });
 
+            */
+
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+            //Refresh the data
+
+            if(mProductAdapter!=null)
+            {
+
+                mProductAdapter.notifyDataSetChanged();
+
+            }
         }
+
 
 
     @Override

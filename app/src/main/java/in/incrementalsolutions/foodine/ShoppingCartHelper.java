@@ -2,7 +2,9 @@ package in.incrementalsolutions.foodine;
 
 import android.content.res.Resources;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 /**
@@ -13,6 +15,7 @@ public class ShoppingCartHelper {
     public static final String PRODUCT_INDEX = "PRODUCT_INDEX";
 
     private static List<product> catalog;
+    public static Map<product,ShoppingCartEntry> cartMap = new HashMap<product,ShoppingCartEntry>();
     private static List<product> cart;
 
     public static List<product> getCatalog(Resources res){
@@ -32,11 +35,57 @@ public class ShoppingCartHelper {
         return catalog;
     }
 
-    public static List<product> getCart() {
-        if(cart == null) {
-            cart = new Vector<product>();
+    public static void setQuantity(product product, int quantity){
+
+        //Get the current cart entry
+
+        ShoppingCartEntry curEntry = cartMap.get(product);
+
+        //Remove the products if quantity is zero or less
+
+        if (quantity <= 0) {
+
+            if (curEntry!=null)
+            removeproduct(product);
+            return;
+
         }
 
-        return cart;
+        //If current cart entry does not exist, create one
+
+        if(curEntry == null){
+
+            curEntry = new ShoppingCartEntry(product, quantity);
+            cartMap.put(product,curEntry);
+            return;
+        }
+
+        //update the quantity
+        curEntry.setquantity(quantity);
+
+    }
+
+    public static int getProductQuantity(product product) {
+
+      //get current cart entry
+        ShoppingCartEntry curEntry = cartMap.get(product);
+        if(curEntry!=null)
+            return curEntry.getquantity();
+        return 0;
+    }
+
+    public static void removeproduct(product product) {
+
+        cartMap.remove(product);
+    }
+
+    public static List<product> getCartList() {
+
+        List<product> cartList = new Vector<product>(cartMap.keySet().size());
+        for (product p : cartMap.keySet()){
+
+            cartList.add(p);
+        }
+        return cartList;
     }
 }

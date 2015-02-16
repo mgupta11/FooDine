@@ -5,10 +5,8 @@
 
     <TextView android:id="@+id/TextView01" android:layout_width="wrap_content"
         android:layout_height="wrap_content" android:textColor="#000000"
-        android:textSize="24dip" android:layout_margin="5dip" android:text="Shopping Cart">
-
-        </TextView>
-
+        android:textSize="24dip" android:layout_margin="5dip" android:text="Shopping Cart"></TextView>
+    <TextView android:id="@+id/textView1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="5dip" android:text="Click on a product to edit the quantity"></TextView>
     <ListView android:layout_height="wrap_content"
         android:layout_weight="1" android:id="@+id/ListViewCatalog"
         android:layout_width="fill_parent" android:background="#ffffff"
@@ -16,22 +14,12 @@
         android:choiceMode="multipleChoice">
 
     </ListView>
-    <LinearLayout android:id="@+id/LinearLayout01"
-        android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:orientation="horizontal" android:layout_gravity="right"
-        android:layout_margin="5dip">
-
-        <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/ButtonRemoveFromCart"
-            android:text="Remove from Cart">
-
-            </Button>
-
+    <LinearLayout android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:orientation="horizontal"
+        android:layout_margin="5dip"
+        android:id="@+id/LinearLayoutCheckout" android:layout_gravity="right">
         <Button android:id="@+id/Button02" android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:text="Proceed to Checkout">
-
-            </Button>
-
+            android:layout_height="wrap_content" android:text="Proceed to Checkout"></Button>
     </LinearLayout>
 
 
